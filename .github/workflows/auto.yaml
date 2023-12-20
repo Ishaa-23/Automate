@@ -61,6 +61,14 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Commit and Push Changes
+        run: |
+          cd gosdk
+          git init
+          git add -A
+          git commit -m "Adding all files to new repo"
+          git remote add origin https://github.com/Ishaa-23/Go-Package.git
+          git push -u --force origin main
       
 
      
