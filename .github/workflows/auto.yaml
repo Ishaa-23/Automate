@@ -37,6 +37,6 @@ jobs:
             echo "No changes to commit."
           fi
       - name: Change module name
-        run: 
+        run: |
              sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
              sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
