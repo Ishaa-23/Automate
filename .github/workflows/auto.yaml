@@ -19,7 +19,11 @@ jobs:
       - name: Generate SDK
         run: |
           openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
-      
+      - name: Change module name
+        run: |
+             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
+             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
+
       - name: Commit generated SDK
         run: |
           git config --local user.email "ishaaidayatullah19@siesgst.ac.in"
@@ -36,7 +40,4 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Change module name
-        run: |
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
+      
