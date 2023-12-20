@@ -19,6 +19,10 @@ jobs:
       - name: Delete Existing SDK
         run: rm -rf ${{ github.workspace }}/gosdk
       
+      - name: Create New Folder
+        run: mkdir ${{ github.workspace }}/gosdk
+
+      
       - name: Generate SDK
         run: |
           openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
