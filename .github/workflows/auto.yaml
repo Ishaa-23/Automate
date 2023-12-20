@@ -59,17 +59,7 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Creating new mod
-        run: |
-             go mod init "github.com/${GIT_USER_NAME}/gosdk"
-      - name: Committing
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "New mod file"
-            git push origin main
-          else
-            echo "No changes to commit."
-          fi
+      - name: Check Go version
+        run: go version
 
      
