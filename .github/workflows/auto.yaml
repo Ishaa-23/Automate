@@ -1,4 +1,4 @@
-name: Generate and Add SDK
+name: Delete and Recreate Folder
 
 on:
   push:
@@ -6,32 +6,22 @@ on:
       - main
 
 jobs:
-  generate_and_add_sdk:
+  delete_and_recreate_folder:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install OpenAPI Generator
-        run: npm install -g @openapitools/openapi-generator-cli@latest
-      
-      - name: Delete Existing SDK
+      - name: Delete Existing Folder
         run: rm -rf ${{ github.workspace }}/gosdk
-      
+
       - name: Create New Folder
-        run: mkdir ${{ github.workspace }}/gosdk
+        run: mkdir ${{ github.workspace }}/new-sdk
 
-      
-      - name: Generate SDK
-        run: |
-          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
-      - name: Change module name
-        run: |
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
+      # Additional steps can be added here, such as generating content, copying files, etc.
 
-      - name: Commit generated SDK
+      - name: Commit and Push Changes
         run: |
           git config --local user.email "ishaaidayatullah19@siesgst.ac.in"
           git config --local user.name "Ishaa-23"
@@ -39,12 +29,8 @@ jobs:
           # Check if there are changes in the repository
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
-            git commit -m "Add generated SDK"
-
-            # Use GITHUB_TOKEN for authentication
-            git branch -M main
+            git commit -m "Delete and recreate folder"
             git push origin main
           else
             echo "No changes to commit."
           fi
-      
