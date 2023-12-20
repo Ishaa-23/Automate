@@ -18,8 +18,8 @@ jobs:
       
       - name: Configure Git for C# SDK
         run: |
-          export GIT_USER_NAME=$(git config --local user.name "Ishaa-23")
-          export GIT_EMAIL=$(git config --local user.email "ishaaidayatullah19@siesgst.ac.in")
+          GIT_USER_NAME=$(git config --local user.name "Ishaa-23")
+          GIT_EMAIL=$(git config --local user.email "ishaaidayatullah19@siesgst.ac.in")
 
       - name: Delete Existing SDK
         run: rm -rf ${{ github.workspace }}/gosdk/*
@@ -48,8 +48,9 @@ jobs:
           fi
       - name: Change module name
         run: |
-             rm -rf ${{ github.workspace }}/gosdk/go.mod
-             go mod init github.com/${GIT_USER_NAME}/gosdk
+              sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/go.mod
+
+             
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
