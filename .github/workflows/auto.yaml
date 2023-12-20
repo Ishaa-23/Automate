@@ -49,6 +49,7 @@ jobs:
       - name: Delete go.mod
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
+          cd gosdk
           go mod init github.com/Ishaa-23/gosdk
              
       - name: Committing
