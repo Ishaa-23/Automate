@@ -61,14 +61,16 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Commit and Push Changes
-        run: |
-          cd Go-Package
-          git init
-          git add .
-          git commit -m "Adding all files to new repo"
-          git remote add origin https://github.com/Ishaa-23/Go-Package.git
-          git push -u origin main
+      - name: Push Go SDK to Another Repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'gosdk'
+          destination-github-username: 'Ishaa-23'
+          destination-repository-name: 'Go-Package'
+          user-email: 'ishaaidayatullah19@siesgst.ac.in'
+          target-branch: 'main'
       
 
      
