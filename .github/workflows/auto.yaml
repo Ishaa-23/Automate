@@ -49,6 +49,7 @@ jobs:
       - name: Delete go.mod
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
+          go mod init github.com/Ishaa-23/gosdk
              
       - name: Committing
         run: |
@@ -59,7 +60,6 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Check Go version
-        run: go version
+      
 
      
