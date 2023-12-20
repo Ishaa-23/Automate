@@ -18,8 +18,8 @@ jobs:
       
       - name: Configure Git for C# SDK
         run: |
-          GIT_USER_NAME=$(git config --local user.name "Ishaa-23")
-          GIT_EMAIL=$(git config --local user.email "ishaaidayatullah19@siesgst.ac.in")
+          git config --global user.email "ishaaidayatullah19@siesgst.ac.in"
+          git config --global user.name "Ishaa-23"
 
       - name: Delete Existing SDK
         run: rm -rf ${{ github.workspace }}/gosdk/*
