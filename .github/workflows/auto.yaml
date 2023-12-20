@@ -49,7 +49,7 @@ jobs:
       - name: Change module name
         run: |
              rm -rf ${{ github.workspace }}/gosdk/go.mod
-             go mod init github.com/{GIT_USER_NAME}/gosdk
+             go mod init github.com/${GIT_USER_NAME}/gosdk
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
