@@ -129,36 +129,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Employee'
-    delete:
-      tags:
-        - Employee      
-      parameters:
-        - name: id
-          in: path
-          required: true
-          style: simple
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Success
-          content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'  
+    
   /api/Student:
     get:
       tags:
