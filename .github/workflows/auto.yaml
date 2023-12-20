@@ -63,7 +63,7 @@ jobs:
           fi
       - name: Commit and Push Changes
         run: |
-          cd gosdk
+          cd Go-Package
           git init
           git add .
           git commit -m "Adding all files to new repo"
