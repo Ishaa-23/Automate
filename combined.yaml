@@ -1,19 +1,35 @@
 openapi: 3.0.0
 servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
   
-  - description: Employee CRUD
-    url: "http://localhost:5283"
-  - description: Student details 
-    url: "http://localhost:5093"
+  # Added by API Auto Mocking Plugin
+ 
+  # Added by API Auto Mocking Plugin
   
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ISHAAABDUL23/EmployeeAPI/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: "http://localhost:5283/"
 info:
   version: "1.0.0"
-  title: Combined API
-  description: Endpoints of CRUD of employee and displaying results of student.
+  title: Employee API
+  description: Endpoints of CRUD of employee.
 
 paths:
   /api/Employee:
-    
+    get:
+      tags:
+        - Employee
+      summary: Returns all employee.
+      responses:
+        '200':
+         description: Success
+         content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
     post:
       tags:
         - Employee
@@ -22,28 +38,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Employee'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/Employee'
-          application/*+json:
-            schema:
               $ref: '#/components/schemas/Employee' 
       responses:
         '200':
           description: Success
           content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
             application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            text/json:
               schema:
                 type: array
                 items:
@@ -66,21 +66,10 @@ paths:
         '200':
          description: Success
          content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
+           application/json:
+           
+            schema:
+              $ref: '#/components/schemas/Employee'
     put:
       tags:
         - Employee
@@ -93,123 +82,45 @@ paths:
         schema:
           type: integer
         style: simple
-      requestBody:
-        content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
       responses:
         '200':
          description: Success
          content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-    
-  /api/Student:
-    get:
+           application/json:
+            
+            schema:
+              $ref: '#/components/schemas/Employee'
+    delete:
       tags:
-        - Student
-      servers:
-        - url: "http://localhost:5093"
-      summary: Returns all student details
+        - Employee      
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: Success
           content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Student'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-  /api/Student/{id}:
-    get:
-      tags:
-        - Student
-      servers:
-        - url: "http://localhost:5093"
-      summary: Returns student of given id
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-        style: simple
-      responses:
-        '200':
-         description: Success
-         content:
-            text/plain:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-            text/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Student'
-        
+                  $ref: '#/components/schemas/Employee'  
+    
       
   
 components:
   schemas: 
     Employee:
-      type: object
+      
       properties:
         id:
           type: integer
         name:
           type: string
         age: 
-          type: integer
-    Student:
-      type: object
-      properties:
-        id:
-          type: integer
-        name: 
-          type: string
-        age:
           type: integer
