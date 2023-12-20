@@ -63,13 +63,14 @@ jobs:
           fi
       - name: Push gosdk to Go-Package
         run: |
+          
           cd gosdk
           git init
           git add .
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
           
-          git push --force https://${{ secrets.sdk }}@github.com/Ishaa/Go-Package.git main
+          git push --force https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git main
       
 
      
