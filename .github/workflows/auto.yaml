@@ -48,8 +48,7 @@ jobs:
           fi
       - name: Change module name
         run: |
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
-             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
+             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/README.md
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
