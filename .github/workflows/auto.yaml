@@ -13,11 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Delete Existing Folder
-        run: rm -rf ${{ github.workspace }}/gosdk
+     
 
       - name: Create New Folder
-        run: mkdir ${{ github.workspace }}/new-sdk
+        run: mkdir ${{ github.workspace }}/new_folder_name
 
       # Additional steps can be added here, such as generating content, copying files, etc.
 
