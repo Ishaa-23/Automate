@@ -61,16 +61,15 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Push Go SDK to Another Repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.sdk }}
-        with:
-          source-directory: 'gosdk'
-          destination-github-username: 'Ishaa-23'
-          destination-repository-name: 'Go-Package'
-          user-email: 'ishaaidayatullah19@siesgst.ac.in'
-          target-branch: 'main'
+      - name: Push gosdk to Go-Package
+        run: |
+          cd gosdk
+          git init
+          git add .
+          git commit -m "Push gosdk folder from Automate repository"
+          git branch -M main
+          
+          git push --force https://${{ secrets.sdk }}@github.com/Ishaa/Go-Package.git main
       
 
      
