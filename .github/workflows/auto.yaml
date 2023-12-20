@@ -1,4 +1,4 @@
-name: Delete and Recreate Folder
+name: Generate and Add SDK
 
 on:
   push:
@@ -6,30 +6,49 @@ on:
       - main
 
 jobs:
-  delete_and_recreate_folder:
+  generate_and_add_sdk:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-     
-
-      - name: Create New Folder
-        run: mkdir ${{ github.workspace }}/new_folder_name
-
-      # Additional steps can be added here, such as generating content, copying files, etc.
-
-      - name: Commit and Push Changes
+      - name: Install OpenAPI Generator
+        run: npm install -g @openapitools/openapi-generator-cli@latest
+      
+      - name: Configure Git for C# SDK
         run: |
           git config --local user.email "ishaaidayatullah19@siesgst.ac.in"
           git config --local user.name "Ishaa-23"
-
-          # Check if there are changes in the repository
+      
+      - name: Delete Existing SDK
+        run: rm -rf ${{ github.workspace }}/gosdk/*
+      - name: Committing
+        run: |
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
-            git commit -m "Delete and recreate folder"
+            git commit -m "Delete folder content"
             git push origin main
           else
             echo "No changes to commit."
           fi
+      
+    
+      - name: Generate SDK
+        run: |
+          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
+      - name: Change module name
+        run: |
+             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/docs/*
+             sed "s|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Ishaa-23/TestSDK|g" ${{ github.workspace }}/gosdk/test/*
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Renaming github generic"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+
+     
