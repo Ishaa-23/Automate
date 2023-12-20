@@ -64,7 +64,7 @@ jobs:
       - name: Push Go SDK to Another Repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          API_TOKEN_GITHUB: ${{ secrets.sdk }}
         with:
           source-directory: 'gosdk'
           destination-github-username: 'Ishaa-23'
