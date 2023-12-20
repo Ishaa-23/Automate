@@ -50,7 +50,7 @@ jobs:
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/Ishaa-23/gosdk
+          go mod init github.com/${GIT_USER_NAME}/gosdk
              
       - name: Committing
         run: |
