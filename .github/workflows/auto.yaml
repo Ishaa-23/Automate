@@ -46,16 +46,13 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Set variable
-        run: | 
-             echo "repo_name=Go-Package" >> $GITHUB_ENV
-             echo "user_name=Ishaa-23"   >> $GITHUB_ENV
+     
         
       - name: Delete go.mod
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/${user_name}/$(repo_name)
+          go mod init github.com/Ishaa-23/Go-Package
              
       - name: Committing
         run: |
@@ -75,7 +72,7 @@ jobs:
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
           
-          git push --force https://${{ secrets.sdk }}@github.com/$(user_name)/$(repo_name).git main
+          git push --force https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git main
       
 
      
