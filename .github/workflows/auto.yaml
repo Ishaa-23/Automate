@@ -85,15 +85,5 @@ jobs:
           git add .
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
-      - name: Push javasdk to Java-Package
-        run: |
-          cd javasdk
-          git init
-          git add .
-          git commit -m "Push java-sdk folder from Automate repository"
-          git branch -M main
-          
-          git push --force https://${{ secrets.sdk }}@github.com/${REPO_OWNER}/Java-Package.git main
       
-
      
