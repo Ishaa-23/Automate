@@ -63,9 +63,28 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Delete Contents of Go-Package
+        run: |
+          REPO_OWNER=Ishaa-23
+          REPO_NAME=Go-package
+          TOKEN=${{ secrets.sdk }}
+
+          # Get the latest commit SHA
+          LATEST_COMMIT_SHA=$(git rev-parse HEAD)
+
+          # Get the list of files in the repository
+          FILES=$(curl -s -H "Authorization: token $TOKEN" \
+                    "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/git/trees/$LATEST_COMMIT_SHA?recursive=1" | \
+                    jq -r '.tree[] | .path')
+
+          # Delete each file in the repository
+          for FILE in $FILES; do
+            curl -X DELETE -H "Authorization: token $TOKEN" \
+              "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents/$FILE" \
+              -d "{\"message\": \"Delete $FILE\", \"sha\": \"$LATEST_COMMIT_SHA\"}"
+          done
       - name: Push gosdk to Go-Package
         run: |
-          
           cd gosdk
           git init
           git add .
