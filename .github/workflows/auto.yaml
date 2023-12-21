@@ -6,7 +6,8 @@ on:
       - main
 env:
   GIT_USER_EMAIL: "ishaaidayatullah19@siesgst.ac.in"
-  GIT_USER_NAME: "Ishaa-23"
+  REPO_OWNER: "Ishaa-23"
+  REPO_NAME: "Go-package"
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
@@ -54,7 +55,7 @@ jobs:
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/Ishaa-23/Go-Package
+          go mod init github.com/${REPO_OWNER}/${REPO_NAME}
              
       - name: Committing
         run: |
@@ -72,8 +73,7 @@ jobs:
           git config --global user.name "Ishaa-23"
       - name: Delete Contents of Go-Package
         run: |
-          REPO_OWNER=Ishaa-23
-          REPO_NAME=Go-package
+          
           TOKEN=${{ secrets.sdk }}
 
           # Get the latest commit SHA
@@ -98,7 +98,7 @@ jobs:
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
           
-          git push --force https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git main
+          git push --force https://${{ secrets.sdk }}@github.com/${REPO_OWNER}/${REPO_NAME}.git main
       
 
      
