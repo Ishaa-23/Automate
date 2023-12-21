@@ -2,8 +2,8 @@ name: Generate and Add SDK
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'combined.yaml'
 env:
   GIT_USER_EMAIL: "ishaaidayatullah19@siesgst.ac.in"
   REPO_OWNER: "Ishaa-23"
