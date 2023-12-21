@@ -26,7 +26,9 @@ jobs:
           git config --global user.name "Ishaa-23"
 
       - name: Delete Existing SDK
-        run: rm -rf ${{ github.workspace }}/gosdk/*
+        run: |
+             rm -rf ${{ github.workspace }}/gosdk/*
+             rm -rf ${{ github.workspace }}/javasdk/*
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
@@ -41,6 +43,7 @@ jobs:
       - name: Generate SDK
         run: |
           openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
+          openapi-generator-cli generate --verbose -i combined.yaml -g java -o ${{ github.workspace }}/javasdk --package-name Combinedapi
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
@@ -68,7 +71,7 @@ jobs:
             echo "No changes to commit."
           fi
       
-      - name: Delete Contents of Go-Packge Repository
+      - name: Delete Contents of Go-Package Repository
         run: |
           # Delete all files in the repository
           curl -X DELETE -H "Authorization: token $TOKEN" \
@@ -82,8 +85,15 @@ jobs:
           git add .
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
+      - name: Push javasdk to Java-Package
+        run: |
+          cd javasdk
+          git init
+          git add .
+          git commit -m "Push java-sdk folder from Automate repository"
+          git branch -M main
           
-          git push --force https://${{ secrets.sdk }}@github.com/${REPO_OWNER}/${REPO_NAME}.git main
+          git push --force https://${{ secrets.sdk }}@github.com/${REPO_OWNER}/Java-Package.git main
       
 
      
