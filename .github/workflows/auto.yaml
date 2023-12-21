@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+env:
+  GIT_USER_EMAIL: "ishaaidayatullah19@siesgst.ac.in"
+  GIT_USER_NAME: "Ishaa-23"
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
@@ -63,6 +65,11 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      
+      - name: Configure Git for C# SDK
+        run: |
+          git config --global user.email "ishaaidayatullah19@siesgst.ac.in"
+          git config --global user.name "Ishaa-23"
       - name: Delete Contents of Go-Package
         run: |
           REPO_OWNER=Ishaa-23
