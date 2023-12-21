@@ -46,11 +46,16 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Configure name of target repo
+        env:
+            repo_name: Go-Package
+            user_name: Ishaa-23
+        
       - name: Delete go.mod
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/Ishaa-23/gosdk
+          go mod init github.com/${user_name}/$(repo_name)
              
       - name: Committing
         run: |
@@ -70,7 +75,7 @@ jobs:
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
           
-          git push --force https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git main
+          git push --force https://${{ secrets.sdk }}@github.com/$(user_name)/$(repo_name).git main
       
 
      
