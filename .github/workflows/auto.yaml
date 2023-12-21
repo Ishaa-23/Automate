@@ -46,10 +46,10 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Configure name of target repo
-        env:
-            repo_name: Go-Package
-            user_name: Ishaa-23
+      - name: Set variable
+        run: | 
+             echo "repo_name=Go-Package" >> $GITHUB_ENV
+             echo "user_name=Ishaa-23"   >> $GITHUB_ENV
         
       - name: Delete go.mod
         run: |
