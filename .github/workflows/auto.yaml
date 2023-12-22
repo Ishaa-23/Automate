@@ -123,7 +123,7 @@ jobs:
           fi
       - name: Modifying pom.xml
         run: |
-              cd javasdk/pom.xml
+              cd javasdk
               sed "5s|<artifactId>openapi-java-client</artifactId>|<artifactId>${java_package}</artifactId>|g" pom.xml
               awk -v var="$DISTRIBUTION_MANAGEMENT" 'NR==10{print var} 1' pom.xml > pom.xml.new && mv pom.xml.new pom.xml
               cat pom.xml
