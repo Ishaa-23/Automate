@@ -7,14 +7,6 @@ on:
 env:
    TOKEN: ${secrets.sdk}
    java_package: EmpAPI
-   DISTRIBUTION_MANAGEMENT: 
-     <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/Ishaa-23/Java-Package</url>
-        </repository>
-     </distributionManagement>
    
 jobs:
   generate_and_add_sdk:
@@ -123,8 +115,16 @@ jobs:
           fi
       - name: Modifying pom.xml
         run: |
+              DISTRIBUTION_MANAGEMENT=''' 
+              <distributionManagement>
+                <repository>
+                <id>github</id>
+                <name>GitHub Packages</name>
+                <url>https://maven.pkg.github.com/Ishaa-23/Java-Package</url>
+                </repository>
+              </distributionManagement> '''
               cd javasdk
-              sed "5s|<artifactId>openapi-java-client</artifactId>|<artifactId>${java_package}</artifactId>|g" pom.xml
+              sed -i "5s|<artifactId>openapi-java-client</artifactId>|<artifactId>${java_package}</artifactId>|g" pom.xml
               awk -v var="$DISTRIBUTION_MANAGEMENT" 'NR==10{print var} 1' pom.xml > pom.xml.new && mv pom.xml.new pom.xml
               cat pom.xml
       - name: Committing
