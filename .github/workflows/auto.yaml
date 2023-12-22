@@ -77,12 +77,12 @@ jobs:
       
       - name: Push gosdk to Go-Package
         run: |
-          cd gosdk
+          cd ${{ github.workspace }}/gosdk
           git init
           git add .
           git commit -m "Push go-sdk contents from Automate repository"
           git branch -M main
-          git remote add origin https://github.com/Ishaa-23/Go-Package.git
+          git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
       
      
