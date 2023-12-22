@@ -155,7 +155,7 @@ jobs:
           git add .
           git commit -m "Push java-sdk contents from Automate repository"
           git branch -M main
-          git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Java-Package.git
+          git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Java_Package.git
           git push --force origin main
 
 
