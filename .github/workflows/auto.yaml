@@ -36,7 +36,7 @@ jobs:
           fi
       
     
-      - name: Generate SDK
+      - name: Generate GO-SDK
         run: |
           openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI
           
@@ -55,7 +55,7 @@ jobs:
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/Ishaa-23/Automate
+          go mod init github.com/Ishaa-23/Go-Package
              
       - name: Committing
         run: |
