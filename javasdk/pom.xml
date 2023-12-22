@@ -7,6 +7,7 @@
     <name>openapi-java-client</name>
     <version>1.0.0</version>
     <url>https://github.com/openapitools/openapi-generator</url>
+$(cat <<'EOF' <distributionManagement> <repository> <id>github</id> <name>GitHub Packages</name> <url>https://maven.pkg.github.com/Ishaa-23/Java-Package</url> </repository> </distributionManagement> EOF)
     <description>OpenAPI Java</description>
     <scm>
         <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
