@@ -4,11 +4,7 @@ on:
   push:
     branches:
       - main
-env:
-  GIT_USER_EMAIL: "ishaaidayatullah19@siesgst.ac.in"
-  REPO_OWNER: "Ishaa-23"
-  REPO_NAME: "Go-package"
-  TOKEN: ${{ secrets.sdk }}
+
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
@@ -28,12 +24,12 @@ jobs:
       - name: Delete Existing SDK
         run: |
              rm -rf ${{ github.workspace }}/gosdk/*
-             rm -rf ${{ github.workspace }}/javasdk/*
+            
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
-            git commit -m "Delete folder content"
+            git commit -m "Delete GOSDK folder content"
             git push origin main
           else
             echo "No changes to commit."
@@ -42,13 +38,13 @@ jobs:
     
       - name: Generate SDK
         run: |
-          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name Combinedapi
-          openapi-generator-cli generate --verbose -i combined.yaml -g java -o ${{ github.workspace }}/javasdk --package-name Combinedapi
+          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI
+          
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git add --all
-            git commit -m "Committing sdk to folder"
+            git commit -m "Committing Go sdk to folder"
             git push origin main
           else
             echo "No changes to commit."
@@ -59,7 +55,7 @@ jobs:
         run: |
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
-          go mod init github.com/${REPO_OWNER}/${REPO_NAME}
+          go mod init github.com/Ishaa-23/Automate
              
       - name: Committing
         run: |
@@ -75,7 +71,7 @@ jobs:
         run: |
           # Delete all files in the repository
           curl -X DELETE -H "Authorization: token $TOKEN" \
-            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/contents" \
+            "https://api.github.com/repos/Ishaa-23/Go-Package/contents" \
             -d '{"message": "Delete all content", "sha": "main"}'
       
       - name: Push gosdk to Go-Package
