@@ -6,6 +6,16 @@ on:
       - main
 env:
    TOKEN: ${secrets.sdk}
+   java_package: EmpAPI
+   DISTRIBUTION_MANAGEMENT: $(cat <<'EOF'
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/Ishaa-23/Java-Package</url>
+        </repository>
+    </distributionManagement>
+    EOF)
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
@@ -84,5 +94,49 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
+
+      - name: Deleting existing java sdk
+        run: |
+           rm -rf ${{ github.workspace }}/javasdk/*
       
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Delete Java-SDK folder content"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+      - name: Generate Java-SDK
+        run: |
+          openapi-generator-cli generate --verbose -i combined.yaml -g java -o ${{ github.workspace }}/javasdk --package-name EmployeeAPI
+          
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Committing Java sdk to folder"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+      - name: Modifying pom.xml
+        run: |
+              cd javasdk
+              sed '5s|<artifactId>openapi-java-client</artifactId>|<artifactId>'"$java_package"'</artifactId>|' pom.xml
+              awk -v var="$DISTRIBUTION_MANAGEMENT" 'NR==10{print var} 1' pom.xml > pom.xml.new && mv pom.xml.new pom.xml
+              cat pom.xml
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Made changes to javasdk"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+
+
+
      
