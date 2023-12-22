@@ -1,6 +1,3 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID
+module github.com/Ishaa-23/Go-Package
 
-go 1.18
-
-require (
-)
+go 1.20
