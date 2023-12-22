@@ -136,6 +136,18 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Replace maven.yml with publish-java.yml content
+        run: |
+          cat publish-java.yml > javasdk/.github/workflows/maven.yml
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Made changes to maven.yml"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
 
 
 
