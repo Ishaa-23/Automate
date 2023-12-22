@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-
+env:
+   TOKEN: ${{secrets.sdk}}
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
