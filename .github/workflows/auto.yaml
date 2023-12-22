@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-   TOKEN: ${{secrets.sdk}}
+   TOKEN: ${secrets.sdk}
 jobs:
   generate_and_add_sdk:
     runs-on: ubuntu-latest
@@ -82,5 +82,7 @@ jobs:
           git add .
           git commit -m "Push gosdk folder from Automate repository"
           git branch -M main
+          git remote add origin https://github.com/Ishaa-23/Go-Package.git
+          git push -u origin main
       
      
