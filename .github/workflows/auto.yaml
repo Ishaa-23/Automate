@@ -2,8 +2,8 @@ name: Generate and Add SDK
 
 on:
   push:
-    paths:
-      - 'combined.yaml'
+    branches:
+             main
 env:
    TOKEN: ${secrets.sdk}
  
