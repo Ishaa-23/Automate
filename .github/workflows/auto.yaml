@@ -127,6 +127,8 @@ jobs:
              
               awk -v var="$DISTRIBUTION_MANAGEMENT" 'NR==10{print var} 1' pom.xml > pom.xml.new && mv pom.xml.new pom.xml
               cat pom.xml
+              sed -i "5s/openapi-java-client/employee/" pom.xml
+
       - name: Committing
         run: |
           if [ -n "$(git status --porcelain)" ]; then
@@ -148,15 +150,5 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Pushing java sdk to Java-Package repo
-        run: |
-          cd ${{ github.workspace }}/javasdk
-          git init
-          git add .
-          git commit -m "Push java-sdk contents from Automate repository"
-          git branch -M main
-          git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Java_Package.git
-          git push --force origin main
-
-
+     
      
