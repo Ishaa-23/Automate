@@ -4,9 +4,11 @@ on:
   push:
     branches:
              main
+    paths:
+      - 'combined.yaml'
 env:
    TOKEN: ${secrets.sdk}
-   version : v1.0.3
+  
    
  
    
