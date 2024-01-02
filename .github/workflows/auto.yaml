@@ -3,7 +3,7 @@ name: Generate and Add SDK
 on:
   push:
     branches:
-             main
+      -  main
     paths:
       - 'combined.yaml'
 env:
@@ -81,7 +81,7 @@ jobs:
           echo "::set-output name=version::${new_version}"
           echo "${{ steps.set_version.outputs.version }}" > version_go.txt
           echo "::set-output name=version::$(cat version_go.txt)"
-          echo "VERSION=${{ steps.read_version.outputs.version }}" >> $GITHUB_ENV
+          VERSION=${{ steps.read_version.outputs.version }}
          
       - name: Push gosdk to Go-Package
         run: |
