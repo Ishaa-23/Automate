@@ -43,7 +43,7 @@ jobs:
     
       - name: Generate GO-SDK
         run: |
-          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI --package-version 1.0.1
+          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI -p --package-version=1.0.1
           
       - name: Committing
         run: |
