@@ -8,9 +8,6 @@ on:
       - 'combined.yaml'
 env:
    TOKEN: ${secrets.sdk}
-  
-   
- 
    
 jobs:
   generate_and_add_sdk:
@@ -76,7 +73,16 @@ jobs:
           fi
       
      
-      
+      - name: Increment Version, overwrite and store in variable
+        id: set_version
+        run: |
+          current_version=$(cat version_go.txt)
+          new_version=$(echo $current_version | awk -F'v|\\.' '{print "v"$2"."$3"."$4+1}')
+          echo "::set-output name=version::${new_version}"
+          echo "${{ steps.set_version.outputs.version }}" > version_go.txt
+          echo "::set-output name=version::$(cat version_go.txt)"
+          echo "VERSION=${{ steps.read_version.outputs.version }}" >> $GITHUB_ENV
+         
       - name: Push gosdk to Go-Package
         run: |
           cd ${{ github.workspace }}/gosdk
@@ -86,7 +92,7 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
-          git tag -a ${version} -m "Releasing latest version"
+          git tag -a ${env.VERSION} -m "Releasing latest version"
           git push origin --tags
       
      
