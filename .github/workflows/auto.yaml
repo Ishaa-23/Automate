@@ -6,7 +6,7 @@ on:
              main
 env:
    TOKEN: ${secrets.sdk}
-   version : v1.0
+   version : v1.0.0
    
  
    
@@ -61,6 +61,13 @@ jobs:
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
           go mod init github.com/Ishaa-23/Go-Package
+          go_module= '''
+          require (
+          github.com/Ishaa-23/Go-Package 1.1.1
+          )'''
+
+          awk -v var="$go_module" 'NR==3{print var} 1' go.mod > go.mod.new && mv go.mod.new go.mod
+          cat go.mod
              
       - name: Committing
         run: |
