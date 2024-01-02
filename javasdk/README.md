@@ -1,4 +1,4 @@
-# openapi-java-client
+# employee
 
 Combined API
 - API version: 1.0.0
@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 ```xml
 <dependency>
   <groupId>org.openapitools</groupId>
-  <artifactId>openapi-java-client</artifactId>
+  <artifactId>employee</artifactId>
   <version>1.0.0</version>
   <scope>compile</scope>
 </dependency>
@@ -51,12 +51,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'openapi-java-client' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'openapi-java-client' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'employee' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'employee' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:1.0.0"
+     implementation "org.openapitools:employee:1.0.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-1.0.0.jar`
+* `target/employee-1.0.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
