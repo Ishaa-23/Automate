@@ -83,7 +83,7 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
-          git tag -a ${version} -m "Releasing latest version"
+          git tag -a ${version}+1 -m "Releasing latest version"
           git push origin --tags
       
      
@@ -161,6 +161,8 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Java_Package.git
           git push --force origin main
+          git tag -a ${version} -m "Releasing latest version"
+          git push origin --tags
 
 
      
