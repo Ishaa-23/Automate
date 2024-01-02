@@ -83,6 +83,7 @@ jobs:
           echo "${{ steps.set_version.outputs.version }}" > version_go.txt
           echo "::set-output name=version::$(cat version_go.txt)"
           VERSION=${{ steps.read_version.outputs.version }}
+        
          
       - name: Push gosdk to Go-Package
         run: |
@@ -93,9 +94,7 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
-          git tag -a ${VERSION} -m "Releasing latest version"
-          git push origin --tags
-      
+         
      
       - name: Deleting existing java sdk
         run: |
