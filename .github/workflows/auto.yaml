@@ -6,7 +6,7 @@ on:
              main
 env:
    TOKEN: ${secrets.sdk}
-   version : v1.0.0
+   version : v1.0.1
    
  
    
@@ -21,7 +21,7 @@ jobs:
       - name: Install OpenAPI Generator
         run: npm install -g @openapitools/openapi-generator-cli@latest
       
-      - name: Configure Git for C# SDK
+      - name: Configure Git for SDK
         run: |
           git config --global user.email "ishaaidayatullah19@siesgst.ac.in"
           git config --global user.name "Ishaa-23"
@@ -43,7 +43,7 @@ jobs:
     
       - name: Generate GO-SDK
         run: |
-          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI
+          openapi-generator-cli generate --verbose -i combined.yaml -g go -o ${{ github.workspace }}/gosdk --package-name EmployeeAPI --package-version 1.0.1
           
       - name: Committing
         run: |
@@ -61,13 +61,7 @@ jobs:
           rm -f ${{ github.workspace }}/gosdk/go.mod
           cd gosdk
           go mod init github.com/Ishaa-23/Go-Package
-          go_module= '''
-          require (
-          github.com/Ishaa-23/Go-Package 1.0.0
-          )'''
-
-          awk -v var="$go_module" 'NR==3{print var} 1' go.mod > go.mod.new && mv go.mod.new go.mod
-          cat go.mod
+         
              
       - name: Committing
         run: |
@@ -90,7 +84,7 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
-          git tag -a ${version}+1 -m "Releasing latest version"
+          git tag -a ${version} -m "Releasing latest version"
           git push origin --tags
       
      
