@@ -79,38 +79,7 @@ paths:
       tags:
       - Employee
       x-accepts: application/json
-    get:
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            text/plain:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Employee'
-                type: array
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Employee'
-                type: array
-            text/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Employee'
-                type: array
-          description: Success
-      summary: Returns employee of given id
-      tags:
-      - Employee
-      x-accepts: application/json
+    
     put:
       parameters:
       - explode: false
