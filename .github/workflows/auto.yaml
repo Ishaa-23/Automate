@@ -6,6 +6,8 @@ on:
              main
 env:
    TOKEN: ${secrets.sdk}
+   version : v1.0
+   
  
    
 jobs:
@@ -70,12 +72,7 @@ jobs:
             echo "No changes to commit."
           fi
       
-      - name: Delete Contents of Go-Package Repository
-        run: |
-          # Delete all files in the repository
-          curl -X DELETE -H "Authorization: token $TOKEN" \
-            "https://api.github.com/repos/Ishaa-23/Go-Package/contents" \
-            -d '{"message": "Delete all content", "sha": "main"}'
+     
       
       - name: Push gosdk to Go-Package
         run: |
@@ -86,7 +83,10 @@ jobs:
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
           git push --force origin main
-
+          git tag -a ${version} -m "Releasing latest version"
+          git push origin --tags
+      
+     
       - name: Deleting existing java sdk
         run: |
            rm -rf ${{ github.workspace }}/javasdk/*
