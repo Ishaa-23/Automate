@@ -70,7 +70,9 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      
+      - name: Read Updated Version from version.txt
+        id: read_version
+        run: echo "::set-output name=version::$(cat version_go.txt)"
      
       - name: Increment Version, overwrite and store in variable
         id: set_version
