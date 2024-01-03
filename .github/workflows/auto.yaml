@@ -72,16 +72,19 @@ jobs:
           fi
       - name: Read Updated Version from version.txt
         id: read_version
-        run: echo "::set-output name=version::$(cat version_go.txt)"
+        run: |
+             cd version_files
+             echo "::set-output name=version::$(cat go.txt)"
      
       - name: Increment Version, overwrite and store in variable
         id: set_version
         run: |
-          current_version=$(cat version_go.txt)
+          cd version_files
+          current_version=$(cat go.txt)
           new_version=$(echo $current_version | awk -F'v|\\.' '{print "v"$2"."$3"."$4+1}')
           echo "::set-output name=version::${new_version}"
-          echo "${{ steps.set_version.outputs.version }}" > version_go.txt
-          echo "::set-output name=version::$(cat version_go.txt)"
+          echo "${{ steps.set_version.outputs.version }}" > go.txt
+          echo "::set-output name=version::$(cat go.txt)"
           VERSION=${{ steps.read_version.outputs.version }}
         
          
