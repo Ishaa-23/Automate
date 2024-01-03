@@ -70,33 +70,25 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Read Updated Version from version.txt
+      - name: Read Current Version from go.txt
         id: read_version
-        run: |
-             cd version_files
-             echo "::set-output name=version::$(cat go.txt)"
-     
-      - name: Increment Version, overwrite and store in variable
+        run: echo "::set-output name=version::$(cat version_files/go.txt)"
+
+      - name: Increment Version
         id: set_version
         run: |
-          cd version_files
-          current_version=$(cat go.txt)
-          new_version=$(echo $current_version | awk -F'v|\\.' '{print "v"$2"."$3"."$4+1}')
-          echo "::set-output name=version::${new_version}"
-          echo "${{ steps.set_version.outputs.version }}" > go.txt
-          echo "::set-output name=version::$(cat go.txt)"
-          VERSION=${{ steps.read_version.outputs.version }}
+          current_version=$(echo ${{ steps.read_version.outputs.version }} | awk -F'v|\\.' '{print "v"$2"."$3"."$4+1}')
+          echo "::set-output name=version::${current_version}"
 
-      - name: Committing
+      - name: Update go.txt
+        run: echo "${{ steps.set_version.outputs.version }}" > version_files/go.txt
+
+      - name: Commit and Push Changes
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git add --all
-            git commit -m "Updating version"
-            git push origin main
-          else
-            echo "No changes to commit."
-          fi  
-         
+          git add go.txt
+          git commit -m "Increment version to ${{ steps.set_version.outputs.version }}"
+          git push origin main
+
       - name: Push gosdk to Go-Package
         run: |
           cd ${{ github.workspace }}/gosdk
