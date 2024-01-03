@@ -85,6 +85,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
+          cd version_files
           git add go.txt
           git commit -m "Increment version to ${{ steps.set_version.outputs.version }}"
           git push origin main
