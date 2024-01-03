@@ -70,23 +70,6 @@ jobs:
           else
             echo "No changes to commit."
           fi
-    
-      - name: Read Current Version from go.txt
-        id: read_version
-        run: |
-          version=$(<version_files/go.txt)
-          version_without_v=${version#v}
-          new_version="v$(echo "$version_without_v" | awk -F'\\.' '{print $1"."$2"."$3+1}')"
-          echo "New Version: $new_version"
-          echo "${{new_version }}" > version_files/go.txt
-
-
-      - name: Commit and Push Changes
-        run: |
-          cd version_files
-          git add go.txt
-          git commit -m "Increment version to ${{ steps.set_version.outputs.version }}"
-          git push origin main
 
       - name: Push gosdk to Go-Package
         run: |
