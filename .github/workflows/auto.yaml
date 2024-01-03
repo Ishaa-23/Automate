@@ -70,16 +70,11 @@ jobs:
           else
             echo "No changes to commit."
           fi
-      - name: Read Current Version from go.txt
-        id: read_version
-        run: |
-          version=$(<version_files/go.txt)
-         
-
+    
       - name: Increment Version
         id: set_version
         run: |
-          current_version=$version
+          current_version=$(<version_files/go.txt)
           IFS='.' read -r -a version_parts <<< "$current_version"
           major="${version_parts[0]}"
           minor="${version_parts[1]}"
