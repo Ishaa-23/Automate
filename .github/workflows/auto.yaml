@@ -71,10 +71,16 @@ jobs:
             echo "No changes to commit."
           fi
     
+      - name: Read Current Version from go.txt
+        id: read_version
+        run: |
+          version=$(<version_files/go.txt)
+          echo "::set-output name=version::$version"
+
       - name: Increment Version
         id: set_version
         run: |
-          current_version=$(<version_files/go.txt)
+          current_version=${{ steps.read_version.outputs.version }}
           IFS='.' read -r -a version_parts <<< "$current_version"
           major="${version_parts[0]}"
           minor="${version_parts[1]}"
@@ -82,7 +88,9 @@ jobs:
           ((patch++))
           new_version="$major.$minor.$patch"
           echo "::set-output name=version::$new_version"
-          echo "${{ steps.set_version.outputs.version }}" > version_files/go.txt
+      
+      - name: Update go.txt
+        run: echo "${{ steps.set_version.outputs.version }}" > version_files/go.txt
 
       - name: Commit and Push Changes
         run: |
