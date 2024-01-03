@@ -106,8 +106,8 @@ jobs:
           git commit -m "Push go-sdk contents from Automate repository"
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
-          current_version=${{ steps.read_version.outputs.version }}
-          git tag -a $current_version -m "Releasing latest version"
+          version=$(cat version_files/go.txt)
+          git tag -a $version -m "Releasing latest version"
           git push --force origin main
           git push origin --tags
       
