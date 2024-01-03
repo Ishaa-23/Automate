@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   
-  - description: Employee CRUD
+  - description: Employee Crud
     url: "http://localhost:5283"
   - description: Student details 
     url: "http://localhost:5093"
