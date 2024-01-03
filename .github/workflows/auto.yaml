@@ -100,13 +100,13 @@ jobs:
       
       - name: Push gosdk to Go-Package
         run: |
+          version=$(cat version_files/go.txt)
           cd ${{ github.workspace }}/gosdk
           git init
           git add .
           git commit -m "Push go-sdk contents from Automate repository"
           git branch -M main
           git remote add origin https://${{ secrets.sdk }}@github.com/Ishaa-23/Go-Package.git
-          version=$(cat version_files/go.txt)
           git tag -a $version -m "Releasing latest version"
           git push --force origin main
           git push origin --tags
