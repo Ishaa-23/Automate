@@ -70,6 +70,33 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Read Current Version from go.txt
+        id: read_version
+        run: |
+          version=$(cat version_files/go.txt)
+          echo "Current Version: $version"
+          echo "::set-output name=version::$version"
+
+      - name: Increment Version
+        id: set_version
+        run: |
+          current_version=${{ steps.read_version.outputs.version }}
+          IFS='.' read -r -a version_parts <<< "$current_version"
+          major="${version_parts[0]}"
+          minor="${version_parts[1]}"
+          patch="${version_parts[2]}"
+          ((patch++))
+          new_version="$major.$minor.$patch"
+          echo "New Version: $new_version"
+          echo "::set-output name=version::$new_version"
+
+      - name: Update go.txt
+        run: echo "${{ steps.set_version.outputs.version }}" > version_files/go.txt
+      - name: Commit and Push Changes
+        run: |
+          git add version_files/go.txt
+          git commit -m "Increment version to ${{ steps.set_version.outputs.version }}"
+          git push origin main
 
       - name: Push gosdk to Go-Package
         run: |
