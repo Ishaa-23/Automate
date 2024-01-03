@@ -74,12 +74,12 @@ jobs:
         id: read_version
         run: |
           version=$(<version_files/go.txt)
-          echo "::set-output name=version::$version"
+         
 
       - name: Increment Version
         id: set_version
         run: |
-          current_version=${{ steps.read_version.outputs.version }}
+          current_version=$version
           IFS='.' read -r -a version_parts <<< "$current_version"
           major="${version_parts[0]}"
           minor="${version_parts[1]}"
