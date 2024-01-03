@@ -86,7 +86,16 @@ jobs:
           echo "${{ steps.set_version.outputs.version }}" > go.txt
           echo "::set-output name=version::$(cat go.txt)"
           VERSION=${{ steps.read_version.outputs.version }}
-        
+
+      - name: Committing
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add --all
+            git commit -m "Updating version"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi  
          
       - name: Push gosdk to Go-Package
         run: |
