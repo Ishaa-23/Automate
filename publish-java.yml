@@ -20,4 +20,4 @@ jobs:
         if: steps.is_new_tag.outputs.is_new_tag == 'true' && contains(github.event_name, 'tag') && github.event.ref != 'refs/tags/v1.0.0'
         run: mvn --batch-mode deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.JAVA_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.sdk }}
