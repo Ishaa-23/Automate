@@ -12,7 +12,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Check if it's a new tag
+        id: is_new_tag
+        run: echo ::set-output name=is_new_tag::$(if [ -n "${GITHUB_REF##refs/tags/}" ]; then echo true; else echo false; fi)
+        
       - name: Publish package
+        if: steps.is_new_tag.outputs.is_new_tag == 'true' && contains(github.event_name, 'tag') && github.event.ref != 'refs/tags/v1.0.0'
         run: mvn --batch-mode deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.sdk }}
+          GITHUB_TOKEN: ${{ secrets.JAVA_TOKEN }}
