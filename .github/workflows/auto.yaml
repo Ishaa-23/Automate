@@ -3,8 +3,8 @@ name: Generate and Add SDK
 on:
   push:
     branches:
-      -  main
-   
+      - main
+
   
 env:
    TOKEN: ${secrets.sdk}
